@@ -3,6 +3,8 @@
 以下のDockerhubにおけるイメージのDockerfileを公開しております。
 ppc64leアーキテクチャにおけるDockerコンテナ作成時にご活用ください。
 
+https://hub.docker.com/r/nakaji1106/tensorflow-python3/
+
 ```
 # ls
 Dockerfile
