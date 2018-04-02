@@ -76,7 +76,7 @@ RUN cd /tmp && \
    cd / && \
    git clone https://github.com/NVIDIA/nccl.git && \
    cd /nccl  && \
-   make CUDA_HOME=/usr/local/cuda-9.0 test 
+   make CUDA_HOME=/usr/local/cuda-9.1 test 
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nccl/build/lib
 
