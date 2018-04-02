@@ -71,6 +71,15 @@ RUN cd /tmp && \
     bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg && \
     pip3 install /tmp/tensorflow_pkg/tensorflow-1.5.1*
 
+# Build nccl ver1
+
+   cd / && \
+   git clone https://github.com/NVIDIA/nccl.git && \
+   cd /nccl  && \
+   make CUDA_HOME=/usr/local/cuda-9.0 test 
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nccl/build/lib
+
 # setup ssh
 RUN mkdir /var/run/sshd
 RUN echo root:$(echo "passw0rd") | chpasswd
@@ -78,7 +87,7 @@ RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/s
 RUN sed -i '/^AcceptEnv/s/^/#/' /etc/ssh/sshd_config
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 RUN echo "export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$PATH" >> /root/.bashrc && \
-    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64" >> /root/.bashrc
+    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/nccl/build/lib" >> /root/.bashrc
 
 
 # setup timezone and locale
