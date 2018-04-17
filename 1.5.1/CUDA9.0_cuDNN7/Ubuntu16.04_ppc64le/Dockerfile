@@ -34,16 +34,6 @@ RUN cd /tmp && \
 ENV PATH=$PATH:/tmp/bazel/output/
 ENV LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
-# import python modules
-RUN pip3 install IPython==5.3
-RUN pip3 install jupyter
-RUN mkdir /root/.jupyter
-RUN echo "c.NotebookApp.ip = '*'" > ~/.jupyter/jupyter_notebook_config.py
-
-# module upgrade
-RUN pip3 install --upgrade pip
-
-
 RUN cd /tmp && \
     git clone --recurse-submodules https://github.com/tensorflow/tensorflow && \
     cd tensorflow && \ 
@@ -86,6 +76,12 @@ RUN cd /tmp && \
    git clone https://github.com/NVIDIA/nccl.git && \
    cd /nccl  && \
    make CUDA_HOME=/usr/local/cuda-9.0 test 
+
+# import python modules
+RUN pip3 install IPython==5.3
+RUN pip3 install jupyter
+RUN mkdir /root/.jupyter
+RUN echo "c.NotebookApp.ip = '*'" > ~/.jupyter/jupyter_notebook_config.py
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nccl/build/lib
 
