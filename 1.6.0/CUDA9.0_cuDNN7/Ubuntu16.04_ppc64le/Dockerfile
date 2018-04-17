@@ -67,8 +67,8 @@ RUN cd /tmp && \
     ./configure && \
     touch /usr/include/stropts.h && \
     ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
-    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} \
-    tensorflow/tools/ci_build/builds/configured GPU \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} && \
+    tensorflow/tools/ci_build/builds/configured GPU && \
     bazel build --copt="-mcpu=power8" --copt="-mtune=power8" --config=cuda //tensorflow/tools/pip_package:build_pip_package --verbose_failures --local_resources=32000,8,1.0 && \
     bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg && \
     pip3 install /tmp/tensorflow_pkg/tensorflow-1.6.0*
