@@ -32,7 +32,7 @@ RUN cd /tmp && \
     ./compile.sh 
 
 ENV PATH=$PATH:/tmp/bazel/output/
-ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 
 RUN cd /tmp && \
