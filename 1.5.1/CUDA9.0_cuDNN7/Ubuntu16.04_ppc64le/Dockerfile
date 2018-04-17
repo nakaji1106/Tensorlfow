@@ -34,6 +34,15 @@ RUN cd /tmp && \
 ENV PATH=$PATH:/tmp/bazel/output/
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
+# import python modules
+RUN pip3 install IPython==5.3
+RUN pip3 install jupyter
+RUN mkdir /root/.jupyter
+RUN echo "c.NotebookApp.ip = '*'" > ~/.jupyter/jupyter_notebook_config.py
+
+# module upgrade
+RUN pip3 install --upgrade pip
+
 
 RUN cd /tmp && \
     git clone --recurse-submodules https://github.com/tensorflow/tensorflow && \
@@ -65,8 +74,8 @@ RUN cd /tmp && \
     ./configure && \
     touch /usr/include/stropts.h && \
     ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
-    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} \
-    tensorflow/tools/ci_build/builds/configured GPU \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} && \
+    tensorflow/tools/ci_build/builds/configured GPU && \
     bazel build --copt="-mcpu=power8" --copt="-mtune=power8" --config=cuda //tensorflow/tools/pip_package:build_pip_package --verbose_failures --local_resources=32000,8,1.0 && \
     bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg && \
     pip3 install /tmp/tensorflow_pkg/tensorflow-1.5.1*
@@ -97,12 +106,6 @@ RUN echo "export LANG=ja_JP.UTF-8" >> /root/.bashrc
 RUN echo "export LANGUAGE=ja_JP.UTF-8" >> /root/.bashrc
 ENV LANGUAGE=ja_JP
 ENV LANG=ja_JP.UTF-8
-
-# import python modules
-RUN pip3 install IPython==5.3
-RUN pip3 install jupyter
-RUN mkdir /root/.jupyter
-RUN echo "c.NotebookApp.ip = '*'" > ~/.jupyter/jupyter_notebook_config.py
 
 # Delete Directory
 RUN rm -rf /tmp/tensorflow /tmp/bazel /tmp/tensorflow_pkg /root/.cache /var/lib/apt/lists/* 
