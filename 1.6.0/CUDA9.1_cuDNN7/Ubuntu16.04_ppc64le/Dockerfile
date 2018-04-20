@@ -48,7 +48,7 @@ RUN cd /tmp && \
     export TF_NEED_JEMALLOC=1 && \
     export TF_NEED_KAFKA=0 && \
     export TF_NEED_TENSORRT=0 && \
-    export TF_ENABLE_XLA=1 && \
+    export TF_ENABLE_XLA=0 && \
     export TF_NEED_OPENCL=0 && \
     export TF_NEED_CUDA=1 && \
     export TF_CUDA_VERSION=9.1 && \
