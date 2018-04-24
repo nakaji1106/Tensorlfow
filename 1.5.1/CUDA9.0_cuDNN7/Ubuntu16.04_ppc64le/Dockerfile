@@ -46,7 +46,7 @@ RUN cd /tmp && \
     export TF_NEED_GCP=1 && \
     export TF_NEED_HDFS=1 && \
     export TF_NEED_JEMALLOC=1 && \
-    export TF_ENABLE_XLA=1 && \
+    export TF_ENABLE_XLA=0 && \
     export TF_NEED_OPENCL=0 && \
     export TF_NEED_CUDA=1 && \
     export TF_CUDA_VERSION=9.0 && \
@@ -73,10 +73,10 @@ RUN cd /tmp && \
 
 # Build nccl ver1
 
-   cd / && \
-   git clone https://github.com/NVIDIA/nccl.git && \
-   cd /nccl  && \
-   make CUDA_HOME=/usr/local/cuda-9.0 test 
+RUN cd / && \
+    git clone https://github.com/NVIDIA/nccl.git && \
+    cd /nccl  && \
+    make CUDA_HOME=/usr/local/cuda-9.0 test 
 
 # import python modules
 RUN pip3 install IPython==5.3
