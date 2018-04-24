@@ -73,10 +73,10 @@ RUN cd /tmp && \
 
 # Build nccl ver1
 
-   cd / && \
-   git clone https://github.com/NVIDIA/nccl.git && \
-   cd /nccl  && \
-   make CUDA_HOME=/usr/local/cuda-9.0 test 
+RUN cd / && \
+    git clone https://github.com/NVIDIA/nccl.git && \
+    cd /nccl  && \
+    make CUDA_HOME=/usr/local/cuda-9.0 test 
 
 # import python modules
 RUN pip3 install IPython==5.3
