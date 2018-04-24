@@ -5,6 +5,9 @@ ppc64leアーキテクチャにおけるDockerコンテナ作成時にご活用�
 
 https://hub.docker.com/r/nakaji1106/tensorflow-python3/
 
+※上記のDockerHubは現在、修正中のため、こちらのGitHubのDockerfileにてビルドください。
+
+
 ```
 # ls
 Dockerfile
