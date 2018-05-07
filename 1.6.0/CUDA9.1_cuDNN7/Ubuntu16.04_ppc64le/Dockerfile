@@ -32,7 +32,7 @@ RUN cd /tmp && \
     ./compile.sh 
 
 ENV PATH=$PATH:/tmp/bazel/output/
-ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 
 RUN cd /tmp && \
@@ -53,7 +53,7 @@ RUN cd /tmp && \
     export TF_NEED_CUDA=1 && \
     export TF_CUDA_VERSION=9.1 && \
     export CUDA_TOOLKIT_PATH=/usr/local/cuda-9.1 && \
-    export TF_CUDA_COMPUTE_CAPABILITIES=3.5,5.2 && \
+    export TF_CUDA_COMPUTE_CAPABILITIES=6.0,7.0 && \
     export CUDNN_INSTALL_PATH=/usr/local/cuda-9.1 && \
     export TF_CUDNN_VERSION=7 && \
     export TF_NEED_MKL=0 && \
